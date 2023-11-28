@@ -24,13 +24,13 @@ const renderSpinner = function (parentEL) {
         </div>
 `;
   parentEL.innerHTML = '';
-
   parentEL.insertAdjacentHTML('afterbegin', markup);
 };
 const showRecipe = async function () {
   try {
     const id = window.location.hash.slice(1);
     console.log(id);
+    if (!id) return;
     // loadingr recepie
     renderSpinner(recipeContainer);
     const res = await fetch(
@@ -157,4 +157,6 @@ const showRecipe = async function () {
     alert(err);
   }
 };
-window.addEventListener('hashchange', showRecipe);
+['hashchange', 'load'].forEach(ev => window.addEventListener(ev, showRecipe));
+// window.addEventListener('hashchange', showRecipe);
+// window.addEventListener('load', showRecipe);
